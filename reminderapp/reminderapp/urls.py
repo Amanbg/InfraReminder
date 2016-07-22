@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 #admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    #url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     #url(r'^',include("reminder_web_app.urls")),
 ]+ static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT)
