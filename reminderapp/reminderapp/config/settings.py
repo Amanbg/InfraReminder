@@ -2,6 +2,8 @@ from .base_settings import *
 
 # Application definition
 
+BROKER_URL = 'django://'
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -10,6 +12,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'reminder_web_app',
     'rest_framework',
+    'kombu.transport.django',
     'django.contrib.staticfiles',
 
 )
@@ -27,7 +30,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny'
     ]
 }
 # Database
@@ -56,3 +59,6 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+
+CELERYD_OPTS="--concurrency=1"
+CELERY_IMPORTS = ['reminder_web_app.tasks']
