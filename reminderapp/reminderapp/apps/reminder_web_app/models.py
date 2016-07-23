@@ -35,7 +35,8 @@ class Reminder(models.Model):
         		],
 	)
 	message = models.CharField(_("Reminder Message"), max_length=50)
-
+	reminder_received = models.BooleanField(default=False)
+	
 	class Meta:
 		db_table = 'reminder_table'
 		verbose_name = 'reminder_table'
