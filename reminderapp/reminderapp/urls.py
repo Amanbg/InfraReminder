@@ -48,11 +48,3 @@ urlpatterns = [
     #url(r'^',include("reminder_web_app.urls")),
 ]+ static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-# urlpatterns = patterns('',
-#     # Examples:
-#     # url(r'^$', 'reminderapp.views.home', name='home'),
-#     # url(r'^blog/', include('blog.urls')),
-
-#     url(r'^admin/', include(admin.site.urls)),
-# )
