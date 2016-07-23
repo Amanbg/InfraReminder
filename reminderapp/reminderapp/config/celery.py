@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 from django.conf import settings  # noqa
 from datetime import timedelta
-import random
+
 
 app = Celery('config')
 
