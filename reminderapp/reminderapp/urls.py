@@ -41,7 +41,7 @@ reminder_detail = ReminderViewSet.as_view({
     })
 
 # Routers provide an easy way of automatically determine URL conf.
-""" Register reminder url to the router"""
+""" Register endpoint in the api's url"""
 
 router = DefaultRouter()
 router.register(r'api/v1',views.ReminderViewSet)
