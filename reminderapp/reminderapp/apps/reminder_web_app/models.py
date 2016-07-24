@@ -48,22 +48,6 @@ class Reminder(models.Model):
         return self.email_id
 
     def schedule_reminder(self):
-        """Schedules a Celery task to send a reminder"""
-        # Calculate the correct time to send this reminder
-
-        # s1 = str(self.date)+" "+str(self.time)
-        # print "s1 : ",s1
-        # s2 = datetime.now()
-        # s2 = s2.strftime("%Y-%m-%d %H:%M:%S")
-        # print "s2 : ",s2
-        # FMT = "%Y-%m-%d %H:%M:%S"
-        # tdelta = datetime.strptime(s2,FMT) - datetime.strptime(s1,FMT)
-        # print "tdelta : ", tdelta
-        # # reminder_time = appointment_time.replace(minutes=-settings.REMINDER_TIME)
-        # result_utc = datetime.utcnow() + timedelta(seconds=tdelta.seconds,microseconds=tdelta.microseconds)
-        # # Schedule the Celery task
-        # print "result_utc : ",result_utc
         from .tasks import createReminder
-        # result = createReminder.apply_async((self.pk,), eta=result_utc)
         createReminder(self.pk)
-        # return result.id
+    

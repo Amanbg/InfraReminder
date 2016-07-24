@@ -24,10 +24,14 @@ from reminder_web_app import views
 
 #admin.autodiscover()
 
+"""Create a reminder and get list of all reminders"""
+
 reminder_list = ReminderViewSet.as_view({
     'get':'list',
     'post':'create'
     })
+
+"""Get reminder, update contents, delete reminder"""
 
 reminder_detail = ReminderViewSet.as_view({
     'get':'retrieve',
@@ -37,6 +41,7 @@ reminder_detail = ReminderViewSet.as_view({
     })
 
 # Routers provide an easy way of automatically determine URL conf.
+""" Register reminder url to the router"""
 
 router = DefaultRouter()
 router.register(r'api/v1',views.ReminderViewSet)
@@ -45,6 +50,6 @@ urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^',include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    #url(r'^',include("reminder_web_app.urls")),
+    
 ]+ static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT)
