@@ -10,7 +10,7 @@ from datetime import timedelta
 
 class Reminder(models.Model):
     date = models.DateField(_("Date"), default=date.today)
-    time = models.TimeField(_("Time"))
+    time = models.TimeField(_("Time"),default=datetime.now().time())
     email_id = models.EmailField(
                 _("Email Address"),
                 blank=True,
@@ -46,8 +46,3 @@ class Reminder(models.Model):
 
     def __unicode__(self):
         return self.email_id
-
-    def schedule_reminder(self):
-        from .tasks import createReminder
-        createReminder(self.pk)
-    
