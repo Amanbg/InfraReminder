@@ -8,7 +8,7 @@ They can change the reminder date and time according to their prefrences.
 
 User Api endpoint:
 
-Returns json data about a single user.
+Returns json data about a single reminder.
 
     URL: http://localhost:8000/api/v1/id/
 

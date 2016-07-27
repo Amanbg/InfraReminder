@@ -22,26 +22,8 @@ from reminder_web_app.views import ReminderViewSet
 from rest_framework.routers import DefaultRouter
 from reminder_web_app import views
 
-#admin.autodiscover()
-
-"""Create a reminder and get list of all reminders"""
-
-reminder_list = ReminderViewSet.as_view({
-    'get':'list',
-    'post':'create'
-    })
-
-"""Get reminder, update contents, delete reminder"""
-
-reminder_detail = ReminderViewSet.as_view({
-    'get':'retrieve',
-    'put':'update',
-    'patch':'partial_update',
-    'delete':'destroy'
-    })
-
 # Routers provide an easy way of automatically determine URL conf.
-""" Register endpoint in the api's url"""
+""" Register endpoint in the api's url.From this one url we can get both ListView and DetailView of the objects."""
 
 router = DefaultRouter()
 router.register(r'api/v1',views.ReminderViewSet)
@@ -51,5 +33,5 @@ urlpatterns = [
     url(r'^',include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     
-]+ static(
+] + static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT)
