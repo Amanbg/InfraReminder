@@ -1,6 +1,7 @@
 from .base_settings import *
 
 # Application definition
+from datetime import timedelta
 
 BROKER_URL = 'django://'
 
@@ -16,6 +17,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
 )
+
+ 
+CELERYBEAT_SCHEDULE = {
+    'check-reminder': {
+        'task': 'reminder_web_app.tasks.createReminder',
+        'schedule': timedelta(seconds=10),
+    },
+}
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

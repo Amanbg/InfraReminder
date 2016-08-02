@@ -7,7 +7,7 @@ from datetime import datetime
 import time
 
 @app.task
-def createReminder(reminder_id):
+def createReminder():
     """
     Create Reminder on the basis of user input date and time.It first get the corresponding date 
     and time from the user then find the time delta by comparing the current time which is in IST(Indian Time) 
@@ -22,33 +22,31 @@ def createReminder(reminder_id):
         reminder_object = None
         while reminder_object is None:
             try:
-                reminder_object = Reminder.objects.get(id=reminder_id)
+                reminder_object = Reminder.objects.get(reminder_received=False)
             except Exception as e:
                 print str(e)
+                return False
 
-        s1 = str(reminder_object.date)+" "+str(reminder_object.time) #User input IST date time
-    
-        s2 = datetime.now() # current IST time 
-        s2 = s2.strftime("%Y-%m-%d %H:%M")
-    
-        FMT = "%Y-%m-%d %H:%M"
-        tdelta = datetime.strptime(s1,FMT) - datetime.strptime(s2,FMT)  # time delta      
-        result_utc = datetime.utcnow() + timedelta(seconds=tdelta.seconds)  #add this time delta to get Future UTC time.
+            s1 = str(reminder_object.date)+" "+str(reminder_object.time) #User input IST date time
         
-        result_utc = result_utc.replace(microsecond=0) #set microsecond to 0 as user does not input microseconds.
+            s2 = datetime.now() # current IST time 
+            s2 = s2.strftime("%Y-%m-%d %H:%M:%S")
         
-        current_utc = datetime.utcnow().replace(microsecond=0) #similarly here
-        
-        if current_utc < result_utc:
-            pass
-        elif current_utc==result_utc:
-            print"Reminder Ring Up.. "
-            reminder_object.reminder_received=True
-            reminder_object.save()
-
-        createReminder.apply_async((reminder_id,),eta=result_utc)
-        return True
+            FMT = "%Y-%m-%d %H:%M:%S"
+            tdelta = datetime.strptime(s1,FMT) - datetime.strptime(s2,FMT)  # time delta      
+            result_utc = datetime.utcnow() + timedelta(seconds=tdelta.seconds)  #add this time delta to get Future UTC time.
+            
+            result_utc = result_utc.replace(microsecond=0) #set microsecond to 0 as user does not input microseconds.
+            
+            current_utc = datetime.utcnow().replace(microsecond=0) #similarly here
+            
+            if current_utc < result_utc:
+                pass
+            elif current_utc==result_utc:
+                print"Reminder Ring Up.. "
+                reminder_object.reminder_received=True
+                reminder_object.save()
+            return True
     except Exception as e:
         print str(e)
-
 

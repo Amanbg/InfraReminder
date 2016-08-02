@@ -70,3 +70,4 @@ class ReadReminderTest(APITestCase):
         response = self.client.get(url)
         print "response_3 : ", response
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
